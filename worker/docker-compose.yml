@@ -1,0 +1,28 @@
+services:
+  worker-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    ports:
+      - "9090:9090"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/workerdb
+      - DATABASE_USERNAME= 
+      - DATABASE_PASSWORD= 
+
+  postgres:
+    image: postgres:15.0
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "rudsi123###"
+      POSTGRES_DB: workerdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
