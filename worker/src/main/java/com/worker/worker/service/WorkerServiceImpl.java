@@ -9,11 +9,11 @@ import com.worker.worker.model.FileEntity;
 import com.worker.worker.repository.FileRepository;
 
 import io.grpc.stub.StreamObserver;
-import io.grpc.worker.service.RetrieveFileRequest;
-import io.grpc.worker.service.RetrieveFileResponse;
-import io.grpc.worker.service.StoreFileRequest;
-import io.grpc.worker.service.StoreFileResponse;
-import io.grpc.worker.service.WorkerServiceGrpc.WorkerServiceImplBase;
+import io.grpc.common.service.WorkerServiceGrpc.WorkerServiceImplBase;
+import io.grpc.common.service.StoreFileRequest;
+import io.grpc.common.service.StoreFileResponse;
+import io.grpc.common.service.RetrieveFileRequest;
+
 import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService

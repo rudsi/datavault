@@ -9,15 +9,15 @@ services:
       - postgres
     environment:
       - DATABASE_URL=jdbc:postgresql://postgres:5432/workerdb
-      - DATABASE_USERNAME= 
-      - DATABASE_PASSWORD= 
+      - DATABASE_USERNAME= ${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=  ${DATABASE_PASSWORD}
 
   postgres:
-    image: postgres:15.0
+    image: postgres:15.0-alpine
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "rudsi123###"
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: workerdb
     ports:
       - "5432:5432"
@@ -25,4 +25,4 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  postgres_data: {}

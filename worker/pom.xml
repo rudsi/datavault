@@ -92,6 +92,14 @@
       <artifactId>grpc-stub</artifactId>
       <version>1.69.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.common</groupId>
+      <artifactId>common</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>

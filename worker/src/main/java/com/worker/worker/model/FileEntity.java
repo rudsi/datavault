@@ -10,6 +10,9 @@ public class FileEntity {
     private String fileId;
     private byte[] fileContent;
 
+    public FileEntity() {
+    }
+
     public FileEntity(String fileId, byte[] fileContent) {
         this.fileId = fileId;
         this.fileContent = fileContent;
