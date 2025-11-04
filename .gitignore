@@ -4,3 +4,4 @@ temp-storage/
 
 *.jar
 .env
+.kiro
