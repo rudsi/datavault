@@ -56,17 +56,18 @@ if %errorlevel% neq 0 (
         if "%TARGET%"=="worker" goto warn_docker
     )
     goto skip_docker_check
-    
-    :warn_docker
-    echo WARNING: Docker is not running. Integration tests may fail.
-    echo Please start Docker Desktop and try again.
-    set /p CONTINUE="Continue anyway? (y/N) "
-    if /i not "!CONTINUE!"=="y" exit /b 1
-    
-    :skip_docker_check
 ) else (
     echo Docker is running
+    goto skip_docker_check
 )
+
+:warn_docker
+echo WARNING: Docker is not running. Integration tests may fail.
+echo Please start Docker Desktop and try again.
+set /p CONTINUE="Continue anyway? (y/N) "
+if /i not "!CONTINUE!"=="y" exit /b 1
+
+:skip_docker_check
 
 echo.
 
