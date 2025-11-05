@@ -2,7 +2,6 @@ package com.worker.worker.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.worker.worker.model.ChunkTask;
-import com.worker.worker.service.ChunkTaskConsumer;
 import com.worker.worker.util.TestDataBuilder;
 import io.datavault.common.grpc.AssignWorkerRequest;
 import io.datavault.common.grpc.AssignWorkerResponse;
@@ -21,12 +20,9 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -55,9 +51,6 @@ class ChunkStorageIntegrationTest {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
-    @Autowired
-    private ChunkTaskConsumer chunkTaskConsumer;
 
     @MockBean
     private SchedulerServiceGrpc.SchedulerServiceBlockingStub schedulerStub;
