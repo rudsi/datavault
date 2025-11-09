@@ -1,7 +1,7 @@
 # Dockerfile.postgres
 # This Dockerfile initializes a Postgres container and loads schema.sql
 
-FROM postgres:latest
+FROM  postgres:17.6-bookworm
 
 # Copy the initialization SQL into the directory that Postgres executes on startup
 # The path is relative to the build context (project root)
