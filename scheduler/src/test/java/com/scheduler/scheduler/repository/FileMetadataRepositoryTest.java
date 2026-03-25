@@ -47,7 +47,7 @@ class FileMetadataRepositoryTest {
     }
 
     /**
-     * Tests findByFilename query method.
+     * Tests findFirstByFilename query method.
      * Verifies that metadata can be retrieved by filename.
      */
     @Test
@@ -60,7 +60,7 @@ class FileMetadataRepositoryTest {
         entityManager.flush();
 
         // Act
-        FileMetadata result = repository.findByFilename(filename);
+        FileMetadata result = repository.findFirstByFilename(filename);
 
         // Assert
         assertNotNull(result);
@@ -70,13 +70,13 @@ class FileMetadataRepositoryTest {
     }
 
     /**
-     * Tests findByFilename when file doesn't exist.
+     * Tests findFirstByFilename when file doesn't exist.
      * Verifies that null is returned for non-existent filename.
      */
     @Test
     void testFindByFilename_NotFound() {
         // Act
-        FileMetadata result = repository.findByFilename("nonexistent.txt");
+        FileMetadata result = repository.findFirstByFilename("nonexistent.txt");
 
         // Assert
         assertNull(result);

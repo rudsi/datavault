@@ -12,7 +12,7 @@ import com.scheduler.scheduler.model.FileMetadataId;
 @Repository
 public interface FileMetadataRepository extends CrudRepository<FileMetadata, FileMetadataId> {
 
-    FileMetadata findByFilename(String fileName);
+    FileMetadata findFirstByFilename(String fileName);
 
     List<FileMetadata> findAllByFileId(String fileId);
 

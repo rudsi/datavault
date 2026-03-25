@@ -126,7 +126,7 @@ class FileUploadIntegrationTest {
         Thread.sleep(500);
 
         // Verify metadata exists
-        FileMetadata metadata = metadataRepository.findByFilename("retrieval-test.txt");
+        FileMetadata metadata = metadataRepository.findFirstByFilename("retrieval-test.txt");
         assertThat(metadata).isNotNull();
         assertThat(metadata.getFilename()).isEqualTo("retrieval-test.txt");
         assertThat(metadata.getFileId()).isNotNull();
@@ -184,7 +184,7 @@ class FileUploadIntegrationTest {
         // Verify each file has metadata
         for (int i = 0; i < numberOfFiles; i++) {
             String filename = "concurrent-file-" + i + ".txt";
-            FileMetadata metadata = metadataRepository.findByFilename(filename);
+            FileMetadata metadata = metadataRepository.findFirstByFilename(filename);
             assertThat(metadata).isNotNull();
             assertThat(metadata.getFilename()).isEqualTo(filename);
         }
@@ -216,7 +216,7 @@ class FileUploadIntegrationTest {
         Thread.sleep(500);
 
         // Verify metadata was created
-        FileMetadata metadata = metadataRepository.findByFilename("empty-file.txt");
+        FileMetadata metadata = metadataRepository.findFirstByFilename("empty-file.txt");
         assertThat(metadata).isNotNull();
         assertThat(metadata.getSize()).isEqualTo(0);
     }
@@ -257,7 +257,7 @@ class FileUploadIntegrationTest {
         Thread.sleep(500);
 
         // Verify metadata was created
-        FileMetadata metadata = metadataRepository.findByFilename("large-file.bin");
+        FileMetadata metadata = metadataRepository.findFirstByFilename("large-file.bin");
         assertThat(metadata).isNotNull();
         assertThat(metadata.getSize()).isEqualTo(fileSize);
     }

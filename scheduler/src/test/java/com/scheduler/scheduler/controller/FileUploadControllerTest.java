@@ -146,7 +146,7 @@ class FileUploadControllerTest {
     void testGetFile_NotFound() throws Exception {
         // Arrange
         String filename = "nonexistent.txt";
-        when(metadataRepository.findByFilename(filename)).thenReturn(null);
+        when(metadataRepository.findFirstByFilename(filename)).thenReturn(null);
 
         // Act & Assert
         mockMvc.perform(get("/files/getFile")
@@ -154,7 +154,7 @@ class FileUploadControllerTest {
                 .andExpect(status().isNotFound());
 
         // Verify repository was queried
-        verify(metadataRepository, times(1)).findByFilename(filename);
+        verify(metadataRepository, times(1)).findFirstByFilename(filename);
         verify(metadataRepository, never()).findAllByFileId(anyString());
     }
 
@@ -174,7 +174,7 @@ class FileUploadControllerTest {
         metadata.setChunkId(0);
         metadata.setSize(1024L);
 
-        when(metadataRepository.findByFilename(filename)).thenReturn(metadata);
+        when(metadataRepository.findFirstByFilename(filename)).thenReturn(metadata);
         when(metadataRepository.findAllByFileId(fileId)).thenReturn(List.of(metadata));
 
         // Act & Assert - should return 500 since no chunks have worker assignments
@@ -183,13 +183,13 @@ class FileUploadControllerTest {
                 .andExpect(status().isInternalServerError());
 
         // Verify repository interactions
-        verify(metadataRepository, times(1)).findByFilename(filename);
+        verify(metadataRepository, times(1)).findFirstByFilename(filename);
         verify(metadataRepository, times(1)).findAllByFileId(fileId);
     }
 
     /**
      * Tests that getFile returns 500 when no metadata records exist for the fileId.
-     * This covers the edge case where findByFilename returns a result but findAllByFileId is empty.
+     * This covers the edge case where findFirstByFilename returns a result but findAllByFileId is empty.
      */
     @Test
     void testGetFile_EmptyMetadataList_Returns500() throws Exception {
@@ -198,7 +198,7 @@ class FileUploadControllerTest {
         String fileId = "file-123";
         FileMetadata metadata = TestDataBuilder.createFileMetadata(fileId, filename, 0);
 
-        when(metadataRepository.findByFilename(filename)).thenReturn(metadata);
+        when(metadataRepository.findFirstByFilename(filename)).thenReturn(metadata);
         when(metadataRepository.findAllByFileId(fileId)).thenReturn(Collections.emptyList());
 
         // Act & Assert
@@ -224,7 +224,7 @@ class FileUploadControllerTest {
 
         List<FileMetadata> chunks = Arrays.asList(chunk0, chunk1);
 
-        when(metadataRepository.findByFilename(filename)).thenReturn(chunk0);
+        when(metadataRepository.findFirstByFilename(filename)).thenReturn(chunk0);
         when(metadataRepository.findAllByFileId(fileId)).thenReturn(chunks);
 
         // Act & Assert - gRPC connection will fail, resulting in 500
@@ -233,7 +233,7 @@ class FileUploadControllerTest {
                 .andExpect(status().isInternalServerError());
 
         // Verify repository was queried
-        verify(metadataRepository, times(1)).findByFilename(filename);
+        verify(metadataRepository, times(1)).findFirstByFilename(filename);
         verify(metadataRepository, times(1)).findAllByFileId(fileId);
     }
 }

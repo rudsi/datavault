@@ -88,7 +88,7 @@ public class FileUploadController {
 
     @GetMapping("/getFile")
     public ResponseEntity<byte[]> getFile(@RequestParam String name) {
-        FileMetadata metadata = metadataRepository.findByFilename(name);
+        FileMetadata metadata = metadataRepository.findFirstByFilename(name);
         if (metadata == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
